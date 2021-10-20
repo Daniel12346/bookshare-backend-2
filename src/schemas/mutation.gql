@@ -1,0 +1,41 @@
+scalar Upload
+
+type MutationResult {
+  success: Boolean
+}
+
+input UserInput {
+  email: String
+  password: String
+}
+
+input MessageInput {
+  receiverId: ID
+  content: String
+}
+
+type Mutation {
+  createUser(
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+  ): User!
+  deleteUser(id: ID): MutationResult
+  addUserToChat(userId: ID, chatId: ID): Chat
+  removeUserFromChat(userId: ID, chatId: ID): Chat
+
+  createBook(name: String, author: String, year: Int, coverUrl: String): Book
+  deleteBook(id: ID): MutationResult
+  addBookToOwned(userId: ID, bookId: ID): MutationResult
+  addBookToWanted(userId: ID, bookId: ID): MutationResult
+
+  #the string that is returned is a jwt
+  logIn(email: String, password: String): String
+  createMessage(chatId: ID, content: String): Message
+  createChat(userId: ID): Chat
+  deleteMessage(id: ID): MutationResult
+  deleteChat(id: ID): MutationResult
+  uploadImage(file: Upload): MutationResult
+  uploadChatImage(chatId: ID, file: Upload): MutationResult
+}
